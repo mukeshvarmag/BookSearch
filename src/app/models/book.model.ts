@@ -3,5 +3,5 @@ export interface Book {
   bookname: string;
   author: string;
   price: number;
-  worthy: boolean;
+  worthy: string;
 }

@@ -28,6 +28,7 @@
     <ul>
       <li *ngFor="let book of books">
         <strong>{{ book.bookname }}</strong> by {{ book.author }} - Price: {{ book.price }}
+        <input type="checkbox" [checked]="book.worthy === 'Yes'" disabled /> Worthy
       </li>
     </ul>
   </div>
