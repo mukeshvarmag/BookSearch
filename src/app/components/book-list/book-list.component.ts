@@ -61,6 +61,26 @@ export class BookListComponent {
     );
   }
 
+  selectedBook: Book | null = null;
+
+  selectBook(book: Book): void {
+    this.selectedBook = { ...book }; // Clone the selected book to avoid direct mutations
+  }
+  
+  update(): void {
+    if (this.selectedBook) {
+      this.bookService.updateBook(this.selectedBook).subscribe(
+        (response) => {
+          console.log('Book updated successfully:', response);
+          this.selectedBook = null; // Clear selection after update
+        },
+        (error) => {
+          console.error('Error updating the book:', error);
+        }
+      );
+    }
+  }
+
   // Method to reset search fields
   resetSearchFields(): void {
     this.bookId = 0;
