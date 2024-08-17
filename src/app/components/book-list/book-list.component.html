@@ -4,39 +4,21 @@
   <!-- Search by Book ID -->
   <div class="form-group">
     <label for="bookId">Search by Book ID:</label>
-    <input
-      type="number"
-      id="bookId"
-      [(ngModel)]="bookId"
-      class="form-control"
-      placeholder="Enter Book ID"
-    />
+    <input type="number" id="bookId" [(ngModel)]="bookId" class="form-control" placeholder="Enter Book ID" />
     <button (click)="searchById()" class="btn btn-primary">Search</button>
   </div>
 
   <!-- Search by Book Name -->
   <div class="form-group">
     <label for="bookName">Search by Book Name:</label>
-    <input
-      type="text"
-      id="bookName"
-      [(ngModel)]="bookName"
-      class="form-control"
-      placeholder="Enter Book Name"
-    />
+    <input type="text" id="bookName" [(ngModel)]="bookName" class="form-control" placeholder="Enter Book Name" />
     <button (click)="searchByName()" class="btn btn-primary">Search</button>
   </div>
 
   <!-- Search by Author -->
   <div class="form-group">
     <label for="author">Search by Author:</label>
-    <input
-      type="text"
-      id="author"
-      [(ngModel)]="author"
-      class="form-control"
-      placeholder="Enter Author Name"
-    />
+    <input type="text" id="author" [(ngModel)]="author" class="form-control" placeholder="Enter Author Name" />
     <button (click)="searchByAuthor()" class="btn btn-primary">Search</button>
   </div>
 
@@ -44,7 +26,7 @@
   <div *ngIf="books && books.length > 0">
     <h3>Search Results:</h3>
     <ul>
-      <li *ngFor="let book of books">
+      <li *ngFor="let book of books" (click)="selectBook(book)">
         <strong>{{ book.bookname }}</strong> by {{ book.author }} - Price: {{ book.price }}
         <input type="checkbox" [checked]="book.worthy === 'Yes'" disabled /> Worthy
       </li>
@@ -57,48 +39,78 @@
 
   <hr />
 
-  <!-- Save a New Book -->
-  <h2>Add a New Book</h2>
-  <div class="form-group">
-    <label for="newBookName">Book Name:</label>
-    <input
-      type="text"
-      id="newBookName"
-      [(ngModel)]="book.bookname"
-      class="form-control"
-      placeholder="Enter Book Name"
-    />
+  <!-- Update Book -->
+  <div *ngIf="selectedBook">
+    <h2>Update Book</h2>
+    <div class="form-group">
+      <label for="bookId">Book ID:</label>
+      <input type="number" id="bookId" [(ngModel)]="selectedBook.bookid" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+      <label for="bookName">Book Name:</label>
+      <input type="text" id="bookName" [(ngModel)]="selectedBook.bookname" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <input type="text" id="author" [(ngModel)]="selectedBook.author" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" id="price" [(ngModel)]="selectedBook.price" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="worthy">Worthy:</label>
+      <select id="worthy" [(ngModel)]="selectedBook.worthy" class="form-control" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </div>
+    <button (click)="update()" class="btn btn-primary">Update Book</button>
   </div>
 
-  <div class="form-group">
-    <label for="newAuthor">Author:</label>
-    <input
-      type="text"
-      id="newAuthor"
-      [(ngModel)]="book.author"
-      class="form-control"
-      placeholder="Enter Author Name"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="newPrice">Price:</label>
-    <input
-      type="number"
-      id="newPrice"
-      [(ngModel)]="book.price"
-      class="form-control"
-      placeholder="Enter Book Price"
-    />
-  </div>
-
-  <div class="form-group">
-    <label for="newWorthy">Worthy:</label>
-    <select id="newWorthy" [(ngModel)]="book.worthy" class="form-control">
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-  </div>
-
-  <button (click)="saveBook()" class="btn btn-success">Save Book</button>
+    <!-- Save a New Book -->
+    <h2>Add a New Book</h2>
+    <div class="form-group">
+      <label for="newBookName">Book Name:</label>
+      <input
+        type="text"
+        id="newBookName"
+        [(ngModel)]="book.bookname"
+        class="form-control"
+        placeholder="Enter Book Name"
+      />
+    </div>
+  
+    <div class="form-group">
+      <label for="newAuthor">Author:</label>
+      <input
+        type="text"
+        id="newAuthor"
+        [(ngModel)]="book.author"
+        class="form-control"
+        placeholder="Enter Author Name"
+      />
+    </div>
+  
+    <div class="form-group">
+      <label for="newPrice">Price:</label>
+      <input
+        type="number"
+        id="newPrice"
+        [(ngModel)]="book.price"
+        class="form-control"
+        placeholder="Enter Book Price"
+      />
+    </div>
+  
+    <div class="form-group">
+      <label for="newWorthy">Worthy:</label>
+      <select id="newWorthy" [(ngModel)]="book.worthy" class="form-control">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </div>
+  
+    <button (click)="saveBook()" class="btn btn-success">Save Book</button>
+    
 </div>
